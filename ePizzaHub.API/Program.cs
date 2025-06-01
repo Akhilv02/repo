@@ -1,11 +1,30 @@
+using ePizzaHub.Core.Contract;
+using ePizzaHub.Core.Concrete;
+using ePizzaHub.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
+using ePizzaHub.Repositories.Contract;
+using ePizzaHub.Repositories.Concrete;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<PizzaHubDbContext>(x =>
+{
+    x.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
+});
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
