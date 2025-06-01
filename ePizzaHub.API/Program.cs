@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
 
 var app = builder.Build();
 
