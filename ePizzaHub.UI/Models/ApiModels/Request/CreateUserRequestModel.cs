@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ePizzaHub.Models.ApiModels.Request
+﻿namespace ePizzaHub.UI.Models.ApiModels.Request
 {
-    public class CreateUserRequest
+    public class CreateUserRequestModel
     {
         public string Name { get; set; } = default!;
         public string Email { get; set; } = default!;
