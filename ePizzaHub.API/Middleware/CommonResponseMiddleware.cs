@@ -44,9 +44,20 @@ namespace ePizzaHub.API.Middleware
                         await context.Response.WriteAsync(jsonResponse);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    context.Response.StatusCode = 500;
+
+                    var errorResponse = new ApiResponseModel<object>
+                        (
+                        success: false,
+                        data: (object)null,
+                        message: ex.Message
+                        );
+
+                    var jsonSerializer = JsonSerializer.Serialize(errorResponse);
+                    context.Response.Body = originalBodyStream;
+                    await context.Response.WriteAsync(jsonSerializer);
                 }
             }
         }
